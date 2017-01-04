@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">AccessibilityServiceDemo</string>
+    <string name="app_name">微信抢红包</string>
     <string name="description">由于微信每个版本都会出现不同的id，我们必须更改寻找控件的id实现点击事件</string>
 </resources>

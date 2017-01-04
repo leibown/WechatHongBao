@@ -1,10 +1,10 @@
 package com.leibown.accessibilityservicedemo;
 
 import android.accessibilityservice.AccessibilityService;
-import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.os.Build;
+import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -19,6 +19,8 @@ public class MyAccessibilityService extends AccessibilityService {
 
     private List<AccessibilityNodeInfo> parents;
 
+    private ButtonIdEntity entity;
+
     /**
      * 当启动服务的时候就会被调用
      */
@@ -26,15 +28,30 @@ public class MyAccessibilityService extends AccessibilityService {
     protected void onServiceConnected() {
         super.onServiceConnected();
         parents = new ArrayList<>();
+
+        entity = new ButtonIdEntity();
+        String wechatVersion = Utils.getVersion(this);
+        if (wechatVersion.equals("6.3.31")) {
+            entity.setHongBaoClose(BtnIdConstans.hongBaoClose_6331);
+            entity.setHongBaoDetailClose(BtnIdConstans.hongBaoDetailClose_6331);
+            entity.setHongBaoOpen(BtnIdConstans.hongBaoOpen_6331);
+        } else if (wechatVersion.equals("6.5.3")) {
+            entity.setHongBaoClose(BtnIdConstans.hongBaoClose_653);
+            entity.setHongBaoDetailClose(BtnIdConstans.hongBaoDetailClose_653);
+            entity.setHongBaoOpen(BtnIdConstans.hongBaoOpen_653);
+        }
     }
 
 
-    private boolean isJustBack = false;
+    private boolean isFromUser = true;//是否用户主动进入微信界面
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
 
         int eventType = event.getEventType();
+        Log.e("是否是用户点击进入微信", isFromUser + "");
+        if (Constans.isStrongMode)
+            isFromUser = false;
         //根据回调事件类型处理
         switch (eventType) {
             //通知栏发生变化时
@@ -51,16 +68,15 @@ public class MyAccessibilityService extends AccessibilityService {
                                 Notification notification = (Notification) event.getParcelableData();
                                 PendingIntent pendingIntent = notification.contentIntent;
                                 try {
+                                    isFromUser = false;
                                     pendingIntent.send();
                                     Log.e("demo", "进入微信");
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                             }
-
                         }
                     }
-
                 }
                 break;
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
@@ -69,23 +85,26 @@ public class MyAccessibilityService extends AccessibilityService {
                 if (className.equals("com.tencent.mm.ui.LauncherUI")) {
                     //点击最后一个红包
                     Log.e("demo", "点击红包");
-                    if (isJustBack) {
-                        isJustBack = false;
-                    } else
+                    if (!isFromUser)
                         getLastPacket();
                 } else if (className.equals("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI")) {
                     //开红包
                     Log.e("demo", "开红包");
-                    inputClick("com.tencent.mm:id/bg7");
+                    determineHongBaoIsToke(this, "手慢了，红包派完了");
                 } else if (className.equals("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI")) {
                     //退出红包
                     Log.e("demo", "退出红包");
-                    isJustBack = true;
-                    inputClick("com.tencent.mm:id/ge");
-//                    Intent intent= new Intent(Intent.ACTION_MAIN);
-//                    intent.addCategory(Intent.CATEGORY_HOME);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-//                    startActivity(intent);
+//                    isFromUser = true;
+                    if (!isFromUser) {
+                        inputClick(entity.getHongBaoDetailClose());
+                        jumpToHome();
+                    }
+                }
+                break;
+            default:
+                if (Constans.isStrongMode) {
+                    getLastPacket();
+                    Log.e("leibown", "进入强力模式");
                 }
                 break;
         }
@@ -93,11 +112,55 @@ public class MyAccessibilityService extends AccessibilityService {
     }
 
     /**
+     * 返回主界面
+     */
+    private void jumpToHome() {
+        Log.e("leibown", "跳回主界面");
+        isFromUser = true;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                startActivity(intent);
+            }
+        }, 1000);
+    }
+
+    /**
+     * 判断红包是否被抢
+     *
+     * @param accessibilityService
+     * @param text
+     */
+    private void determineHongBaoIsToke(AccessibilityService accessibilityService, String text) {
+        AccessibilityNodeInfo accessibilityNodeInfo = accessibilityService.getRootInActiveWindow();
+        if (accessibilityNodeInfo == null) {
+            return;
+        }
+
+        List<AccessibilityNodeInfo> nodeInfoList = accessibilityNodeInfo.findAccessibilityNodeInfosByText(text);
+        Log.e("leibown:", "nodeInfoList：" + nodeInfoList.size());
+        if (!nodeInfoList.isEmpty()) {
+            if (!isFromUser) {
+                inputClick(entity.getHongBaoClose());
+                jumpToHome();
+            }
+            Log.e("leibown:", "红包被抢了");
+        } else {
+            inputClick(entity.getHongBaoOpen());
+            if (!isFromUser)
+                jumpToHome();
+            Log.e("leibown:", "红包没有被抢！！！");
+        }
+    }
+
+    /**
      * 通过ID获取控件，并进行模拟点击
      *
      * @param clickId
      */
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void inputClick(String clickId) {
         AccessibilityNodeInfo nodeInfo = getRootInActiveWindow();
         if (nodeInfo != null) {
@@ -110,12 +173,13 @@ public class MyAccessibilityService extends AccessibilityService {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void getLastPacket() {
         AccessibilityNodeInfo nodeInfo = getRootInActiveWindow();
         recycle(nodeInfo);
         if (parents.size() > 0) {
             parents.get(parents.size() - 1).performAction(AccessibilityNodeInfo.ACTION_CLICK);
+        } else {
+            jumpToHome();
         }
     }
 
