@@ -39,6 +39,10 @@ public class MyAccessibilityService extends AccessibilityService {
             entity.setHongBaoClose(BtnIdConstans.hongBaoClose_653);
             entity.setHongBaoDetailClose(BtnIdConstans.hongBaoDetailClose_653);
             entity.setHongBaoOpen(BtnIdConstans.hongBaoOpen_653);
+        }else if (wechatVersion.equals("6.5.4")) {
+            entity.setHongBaoClose(BtnIdConstans.hongBaoClose_654);
+            entity.setHongBaoDetailClose(BtnIdConstans.hongBaoDetailClose_654);
+            entity.setHongBaoOpen(BtnIdConstans.hongBaoOpen_654);
         }
     }
 
