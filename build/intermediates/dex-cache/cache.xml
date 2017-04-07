@@ -2,6 +2,15 @@
 <items version="2" >
 
     <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.android\build-cache\15c9054f4c5a1bd26673b70bf351a116b01e70e2\output\jars\libs\internal_impl-23.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="E:\workspace\WechatHongBao\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.1.0_fe79d0040b21d7f8e0fca6db8cecd3b5db4ea8b1\classes.dex" />
+    </item>
+    <item
         is-multidex="false"
         jar="E:\sdk\android-sdk-windows\android-sdk-windows\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
         jumboMode="false"
@@ -9,6 +18,24 @@
         revision="24.0.2"
         sha1="92e3fc113ec3ee36b64603a38857b95700025633">
         <dex dex="E:\workspace\WechatHongBao\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.0_c800502400e31de7d0446e35b53fd0ff9a14f047.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.android\build-cache\26673aeba58eea7a9ffed42928033bf606236208\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="E:\workspace\WechatHongBao\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c8b9d6d1ec26f10f4e8bfccc1925c695d00e44b7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\workspace\WechatHongBao\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="E:\workspace\WechatHongBao\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_e555227516b8547a644910951d392587dd41bf0a\classes.dex" />
     </item>
     <item
         is-multidex="false"
@@ -20,6 +47,24 @@
         <dex dex="E:\workspace\WechatHongBao\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.1.0_fbaa605f0487bb3388beb9c6ed4f9862762ede16.jar" />
     </item>
     <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.android\build-cache\15c9054f4c5a1bd26673b70bf351a116b01e70e2\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="E:\workspace\WechatHongBao\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_fa1157ed2cd5ebbe33ff9d48729271ba283dc478\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Administrator\.android\build-cache\f33c3c24d028a96ebe37651c48d9de7ce51bbe72\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bc8e3e3b486160c2382f499319b1c70adbf32575">
+        <dex dex="E:\workspace\WechatHongBao\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ab13ad7bc004dfaf5e7b0d96b92ebe7de6e27a91\classes.dex" />
+    </item>
+    <item
         is-multidex="false"
         jar="E:\workspace\WechatHongBao\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
         jumboMode="false"
@@ -27,6 +72,24 @@
         revision="24.0.2"
         sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
         <dex dex="E:\workspace\WechatHongBao\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.0_d0241dfbf0f70555a6dcb2cbaa59332826635a45.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\workspace\WechatHongBao\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="30d2da97ad8ec40d9ed0571dfaf966433389de2e">
+        <dex dex="E:\workspace\WechatHongBao\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_48eeeba5e2fb072715f2f8421d8a2970330dccff\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="E:\sdk\android-sdk-windows\android-sdk-windows\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="E:\workspace\WechatHongBao\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.1.0_c800502400e31de7d0446e35b53fd0ff9a14f047\classes.dex" />
     </item>
     <item
         is-multidex="false"
