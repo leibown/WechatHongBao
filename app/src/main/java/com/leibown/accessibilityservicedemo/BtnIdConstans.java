@@ -7,9 +7,9 @@ package com.leibown.accessibilityservicedemo;
 public class BtnIdConstans {
 
     //6.5.7版本按钮ID
-    public static final String hongBaoClose_657 = "com.tencent.mm:id/bh8";//6.5.4版本红包的关闭按钮
-    public static final String hongBaoOpen_657 = "com.tencent.mm:id/bjj";//6.5.4版本红包开字按钮
-    public static final String hongBaoDetailClose_657 = "com.tencent.mm:id/gw";//6.5.4版本红包详情界面关闭按钮
+    public static final String hongBaoClose_657 = "com.tencent.mm:id/bh8";//6.5.7版本红包的关闭按钮
+    public static final String hongBaoOpen_657 = "com.tencent.mm:id/bjj";//6.5.7版本红包开字按钮
+    public static final String hongBaoDetailClose_657 = "com.tencent.mm:id/gw";//6.5.7版本红包详情界面关闭按钮
 
 
     //6.5.3版本按钮ID

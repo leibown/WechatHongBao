@@ -20,6 +20,7 @@ public class MyAccessibilityService extends AccessibilityService {
     private List<AccessibilityNodeInfo> parents;
 
     private ButtonIdEntity entity;
+    private String wechatVersion;
 
     /**
      * 当启动服务的时候就会被调用
@@ -30,7 +31,7 @@ public class MyAccessibilityService extends AccessibilityService {
         parents = new ArrayList<>();
 
         entity = new ButtonIdEntity();
-        String wechatVersion = Utils.getVersion(this);
+        wechatVersion = Utils.getVersion(this);
         if (wechatVersion.equals("6.3.31")) {
             entity.setHongBaoClose(BtnIdConstans.hongBaoClose_6331);
             entity.setHongBaoDetailClose(BtnIdConstans.hongBaoDetailClose_6331);
@@ -39,11 +40,11 @@ public class MyAccessibilityService extends AccessibilityService {
             entity.setHongBaoClose(BtnIdConstans.hongBaoClose_653);
             entity.setHongBaoDetailClose(BtnIdConstans.hongBaoDetailClose_653);
             entity.setHongBaoOpen(BtnIdConstans.hongBaoOpen_653);
-        }else if (wechatVersion.equals("6.5.4")) {
+        } else if (wechatVersion.equals("6.5.4")) {
             entity.setHongBaoClose(BtnIdConstans.hongBaoClose_654);
             entity.setHongBaoDetailClose(BtnIdConstans.hongBaoDetailClose_654);
             entity.setHongBaoOpen(BtnIdConstans.hongBaoOpen_654);
-        }else if (wechatVersion.equals("6.5.7")) {
+        } else if (wechatVersion.equals("6.5.7")) {
             entity.setHongBaoClose(BtnIdConstans.hongBaoClose_657);
             entity.setHongBaoDetailClose(BtnIdConstans.hongBaoDetailClose_657);
             entity.setHongBaoOpen(BtnIdConstans.hongBaoOpen_657);
@@ -95,7 +96,8 @@ public class MyAccessibilityService extends AccessibilityService {
                     Log.e("demo", "点击红包");
                     if (!isFromUser)
                         getLastPacket();
-                } else if (className.equals("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI")) {
+                } else if (className.equals("com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyReceiveUI")
+                        || ("6.5.7".equals(wechatVersion) && "com.tencent.mm.plugin.luckymoney.ui.En_fba4b94f".equals(className))) {
                     //开红包
                     Log.e("demo", "开红包");
                     determineHongBaoIsToke(this, "手慢了，红包派完了");
@@ -160,7 +162,7 @@ public class MyAccessibilityService extends AccessibilityService {
             inputClick(entity.getHongBaoOpen());
             if (!isFromUser)
                 jumpToHome();
-            Log.e("leibown:", "红包没有被抢！！！");
+            Log.e("leibown:", "红包没有被抢！！！" + entity.getHongBaoOpen());
         }
     }
 
